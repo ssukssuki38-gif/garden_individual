@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>태화강 개인 미션</title>
+<style>
+:root{
+  --bg:#fbf8f2; --card:#ffffff; --ink:#1c2a21; --sub:#4b5b51; --line:#e2dccd;
+  --green:#2b7a4b; --green-l:#e4f3e8; --blue:#245f9e; --blue-l:#e6effa;
+  --yellow-l:#fff5d1; --purple:#5b3fa0; --purple-l:#efeafb; --red:#b42318; --fs:18px;
+}
+html.demo{--fs:24px}
+*{box-sizing:border-box}
+html{font-size:var(--fs)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Malgun Gothic","Apple SD Gothic Neo","Noto Sans KR",sans-serif;line-height:1.6;word-break:keep-all}
+button,input,textarea{font:inherit;color:inherit}
+header{position:sticky;top:0;z-index:20;background:#fff;border-bottom:2px solid var(--line)}
+.top{display:flex;align-items:center;gap:8px;padding:8px 12px;flex-wrap:wrap}
+.top h1{font-size:1.05rem;margin:0;flex:1;min-width:160px}
+.chip{display:inline-flex;align-items:center;gap:4px;padding:4px 12px;border-radius:999px;background:var(--blue-l);color:var(--blue);font-weight:700;font-size:.85rem;border:2px solid transparent}
+.chip.warn{background:#fde8e6;color:var(--red);border-color:var(--red)}
+.small-btn{min-height:40px;padding:4px 12px;border-radius:10px;border:2px solid var(--line);background:#fff;cursor:pointer;font-size:.85rem;font-weight:700}
+nav{display:flex;gap:6px;overflow-x:auto;padding:4px 12px 10px}
+nav button{white-space:nowrap;min-height:44px;padding:4px 14px;border-radius:999px;border:2px solid var(--line);background:#fff;cursor:pointer;font-weight:700;font-size:.9rem}
+nav button.cur{background:var(--purple);border-color:var(--purple);color:#fff}
+main{max-width:860px;margin:0 auto;padding:16px 16px 120px}
+.screen{display:none}
+.screen.show{display:block}
+h2{font-size:1.4rem;margin:.2em 0 .4em}
+h3{font-size:1.1rem;margin:1em 0 .4em}
+.card{background:var(--card);border:2px solid var(--line);border-radius:18px;padding:16px;margin:12px 0}
+.story{background:var(--yellow-l);border-color:#efd98a}
+.tip{background:var(--blue-l);border-color:#bcd2ee}
+.muted{color:var(--sub);font-size:.9rem}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:52px;padding:8px 18px;border-radius:14px;border:2px solid var(--purple);background:var(--purple);color:#fff;font-weight:700;cursor:pointer;text-align:center}
+.btn.ghost{background:#fff;color:var(--purple)}
+.btn.blue{background:var(--blue);border-color:var(--blue)}
+.btn:disabled{opacity:.5;cursor:default}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.grow{flex:1}
+label.f{display:block;font-weight:700;margin:14px 0 6px}
+input[type=text],input[type=number],input[type=time],textarea{width:100%;padding:12px;border:2px solid var(--line);border-radius:12px;background:#fff;font-size:1rem}
+input:focus,textarea:focus{outline:3px solid #c6b8ea;border-color:var(--purple)}
+textarea{min-height:80px;resize:vertical}
+.choices{display:flex;flex-wrap:wrap;gap:8px}
+.choices button{min-height:48px;padding:6px 14px;border-radius:12px;border:2px solid var(--line);background:#fff;cursor:pointer;font-weight:600}
+.choices button.on{background:var(--purple-l);border-color:var(--purple);color:#3b2775}
+.choices button.on::before{content:"✔ "}
+.groups{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.groups button{min-height:56px}
+.two{display:grid;grid-template-columns:1fr 2fr;gap:8px}
+ul.rules{margin:.3em 0;padding-left:1.2em}
+.bottom{position:fixed;left:0;right:0;bottom:0;z-index:15;background:rgba(255,255,255,.96);border-top:2px solid var(--line);padding:10px 16px}
+.bottom .in{max-width:860px;margin:0 auto;display:flex;gap:10px}
+.bottom .btn{flex:1}
+.plant{display:grid;grid-template-columns:150px 1fr;gap:12px}
+.plant.done{border-color:var(--purple);background:#faf8ff}
+.plant-head{grid-column:1/-1;display:flex;align-items:center;gap:8px;font-weight:700;font-size:1.05rem}
+.fields{display:flex;flex-direction:column;gap:8px}
+.badge{display:inline-block;font-size:.75rem;font-weight:700;padding:1px 8px;border-radius:999px;background:#fff;border:2px solid var(--purple);color:var(--purple)}
+.badge.no{border-color:#c9c1ad;color:var(--sub)}
+.ph-view{display:block;position:relative;cursor:pointer;border-radius:12px;overflow:hidden}
+.ph-view img{display:block;width:100%;height:150px;object-fit:cover;background:#f1ede4}
+.ph-empty{height:150px;border-radius:12px;background:#f4f0ff;border:2px dashed #b9a9e3;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--purple);font-weight:700;text-align:center;line-height:1.4;font-size:.9rem}
+.ph-empty .ic{font-size:2rem}
+.ph-cap{position:absolute;left:0;right:0;bottom:0;background:rgba(0,0,0,.55);color:#fff;font-size:.75rem;text-align:center;padding:2px}
+.ph-del{margin-top:6px;width:100%;min-height:36px;border:2px solid var(--line);background:#fff;border-radius:10px;font-size:.8rem;color:var(--sub);cursor:pointer}
+.scene .ph-view img,.scene .ph-empty{height:220px}
+#cardImg{width:100%;border:2px solid var(--line);border-radius:12px;margin-top:10px;background:#fff}
+.toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%);background:#1c2a21;color:#fff;padding:10px 18px;border-radius:12px;z-index:60;opacity:0;transition:opacity .3s;pointer-events:none;max-width:90vw;text-align:center}
+.toast.show{opacity:1}
+.modal{position:fixed;inset:0;z-index:80;background:rgba(20,30,24,.4);display:flex;align-items:center;justify-content:center;padding:16px}
+.modal[hidden]{display:none}
+.modal .box{background:#fff;border-radius:18px;padding:20px;max-width:440px;width:100%;border:2px solid var(--line)}
+.modal p{margin:0 0 16px;white-space:pre-line;font-weight:700}
+@media (max-width:560px){
+  .plant{grid-template-columns:120px 1fr}
+  .plant .ph-view img,.plant .ph-empty{height:120px}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="top">
+    <h1>🙋 태화강 국가정원 <span style="color:var(--purple)">개인 미션</span></h1>
+    <span class="chip" id="clock">⏰ 집합 시각 미정</span>
+    <button class="small-btn" id="demoBtn" type="button">🔍 크게 보기</button>
+    <button class="small-btn" id="resetBtn" type="button">↺ 처음부터</button>
+  </div>
+  <nav id="nav"></nav>
+</header>
+
+<main>
+<!-- 0. 시작 -->
+<section class="screen" id="s0">
+  <h2>나의 정보</h2>
+  <p class="muted">이 파일은 <b>내 휴대폰으로 나 혼자</b> 해요. 모둠이 함께 하는 식물 10개 찾기는 모둠 대표 휴대폰의 <b>모둠 미션</b>으로 해요.</p>
+  <div class="card">
+    <div class="two">
+      <div><label class="f" for="sid">학번</label><input type="text" id="sid" inputmode="numeric" data-bind="sid" placeholder="예: 20301"></div>
+      <div><label class="f" for="sname">이름</label><input type="text" id="sname" data-bind="sname" placeholder="이름"></div>
+    </div>
+    <label class="f">우리 모둠</label>
+    <div class="choices groups" data-choice="group">
+      <button type="button" data-val="1">1모둠</button><button type="button" data-val="2">2모둠</button>
+      <button type="button" data-val="3">3모둠</button><button type="button" data-val="4">4모둠</button>
+      <button type="button" data-val="5">5모둠</button><button type="button" data-val="6">6모둠</button>
+      <button type="button" data-val="7">7모둠</button><button type="button" data-val="8">8모둠</button>
+    </div>
+    <label class="f">모둠에서 내가 맡은 역할</label>
+    <div class="choices" data-choice="role">
+      <button type="button" data-val="📷 사진 담당">📷 사진 담당</button><button type="button" data-val="🔍 이름 탐정">🔍 이름 탐정</button>
+      <button type="button" data-val="✍️ 기록 담당">✍️ 기록 담당</button><button type="button" data-val="⏰ 시간·안전 지킴이">⏰ 시간·안전 지킴이</button>
+    </div>
+  </div>
+  <div class="card">
+    <label class="f" for="meet">⏰ 선생님이 알려 준 집합 시각</label>
+    <input type="time" id="meet" data-bind="meet">
+  </div>
+  <div class="card tip">
+    <b>⚠ 혼자 하는 미션이어도 모둠과 함께 다녀요!</b>
+    <ul class="rules">
+      <li>개인 미션은 모둠이 같이 이동하는 길에서 해요.</li>
+      <li>강가 난간 밖으로 나가지 않고, 식물은 꺾지 않아요.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 1. 생각 열기 -->
+<section class="screen" id="s1">
+  <h2>생각 열기</h2>
+  <div class="card story">
+    <p style="margin:0">우리 학교 화단, 집 앞 길가, 아파트 화단… 매일 지나가는 곳에도 식물이 가득해요. 그런데 <b>내가 이름을 부를 수 있는 식물은 몇 개일까요?</b> 🤔</p>
+  </div>
+  <div class="card">
+    <label class="f" for="knownNow">지금 이름을 아는 식물을 생각나는 대로 모두 적어 보세요.</label>
+    <textarea id="knownNow" data-bind="knownNow" placeholder="예: 소나무, 민들레, 장미, ..."></textarea>
+  </div>
+</section>
+
+<!-- 2. 나의 식물 -->
+<section class="screen" id="s2">
+  <h2>① 내가 고른 식물 2개</h2>
+  <p class="muted">모둠 미션과 별도로, <b>내 마음에 드는 식물 2개</b>를 골라 자세히 살펴봐요. 모둠 미션에서 찾은 식물이어도 괜찮아요. 📷 사진 칸을 누르면 바로 사진을 올릴 수 있어요.</p>
+  <div id="plants"></div>
+</section>
+
+<!-- 3. 오늘의 한 장면 -->
+<section class="screen" id="s3">
+  <h2>② 나만의 한 장면</h2>
+  <p class="muted">오늘 태화강에서 <b>가장 기억에 남는 장면</b>을 한 장 찍어요. 식물, 풍경, 하늘, 새… 무엇이든 좋아요.</p>
+  <div class="card scene">
+    <div class="photo" data-photo="scene.photo" data-label="한 장면 사진"></div>
+    <label class="f" for="sceneTitle">사진 제목</label>
+    <input type="text" id="sceneTitle" data-bind="scene.title" placeholder="예: 바람에 흔들리는 대숲">
+    <label class="f" for="sceneWhy">이 장면을 고른 까닭</label>
+    <textarea id="sceneWhy" data-bind="scene.why" placeholder="예: 대나무 사이로 햇빛이 들어오는 모습이 예뻤다."></textarea>
+  </div>
+</section>
+
+<!-- 4. 돌아보기 -->
+<section class="screen" id="s4">
+  <h2>③ 돌아보기와 결과 카드</h2>
+  <div class="card">
+    <h3 style="margin-top:0">🌱 오늘 새로 알게 된 식물</h3>
+    <label class="f" for="newNames">오늘 새로 이름을 알게 된 식물을 적어 보세요. <span class="muted">(모둠 미션 포함)</span></label>
+    <input type="text" id="newNames" data-bind="newNames" placeholder="예: 억새, 꽃댕강나무, ...">
+  </div>
+  <div class="card">
+    <h3 style="margin-top:0">💭 생각 나누기</h3>
+    <label class="f" for="r1">오늘 활동에서 새로 알게 된 사실이나 놀라웠던 점은?</label>
+    <textarea id="r1" data-bind="r1"></textarea>
+    <label class="f" for="r2">오늘 본 식물 중 우리 학교나 집 근처에서도 본 식물이 있나요? 어디서 봤나요?</label>
+    <textarea id="r2" data-bind="r2"></textarea>
+    <label class="f" for="r3">모둠 활동에서 내가 잘한 점 또는 친구에게 고마웠던 점은?</label>
+    <textarea id="r3" data-bind="r3"></textarea>
+  </div>
+  <div class="card tip">
+    <h3 style="margin-top:0">📤 패들렛에 개인 결과 카드 올리기</h3>
+    <ol style="margin:0;padding-left:1.3em">
+      <li><b>🪪 결과 카드 만들기</b>를 눌러요.</li>
+      <li><b>🖼 이미지 저장</b>을 눌러요. 휴대폰의 사진첩이나 '다운로드' 폴더에 저장돼요.</li>
+      <li><b>📌 패들렛 열기</b>를 누르고 <b>＋</b>를 눌러 저장한 사진을 올려요. 제목에는 <b>학번과 이름</b>을 적어요.</li>
+    </ol>
+    <p class="muted" style="margin:6px 0 0">사진 대신 글로 올리고 싶으면 <b>텍스트 복사</b>를 눌러 패들렛 게시물에 붙여넣어요.</p>
+    <div class="row" style="margin-top:12px">
+      <button class="btn" id="makeCard" type="button">🪪 결과 카드 만들기</button>
+      <button class="btn blue" id="saveImg" type="button" disabled>🖼 이미지 저장</button>
+      <button class="btn ghost" id="copyTxt" type="button">📋 텍스트 복사</button>
+    </div>
+    <a class="btn" href="https://padlet.com/ssukssuki381/padlet-s024sk15dzexkl16kw1e" target="_blank" rel="noopener" style="display:flex;margin-top:10px;background:#d9480f;border-color:#d9480f;text-decoration:none">📌 패들렛 열기</a>
+    <p class="muted" id="saveNote" hidden>저장 버튼이 안 되면 아래 그림을 <b>길게 눌러서</b> 저장하세요.</p>
+    <img id="cardImg" alt="결과 카드" hidden>
+  </div>
+</section>
+</main>
+
+<div class="bottom"><div class="in">
+  <button class="btn ghost" id="prevBtn" type="button">◀ 이전</button>
+  <button class="btn" id="nextBtn" type="button">다음 ▶</button>
+</div></div>
+<div class="toast" id="toast"></div>
+<div class="modal" id="modal" role="dialog" aria-modal="true" hidden><div class="box">
+  <p id="modalMsg"></p>
+  <div class="row"><button class="btn ghost grow" id="modalNo" type="button">취소</button><button class="btn grow" id="modalYes" type="button">확인</button></div>
+</div></div>
+
+<script>
+(function(){
+'use strict';
+var KEY='taehwa_solo_mission_v1';
+var SCREENS=['나의 정보','생각 열기','① 나의 식물','② 한 장면','③ 돌아보기'];
+
+function blank(){
+  return {screen:0,sid:'',sname:'',group:'',role:'',meet:'',knownNow:'',
+    plants:[{photo:'',name:'',nick:'',note:'',why:''},{photo:'',name:'',nick:'',note:'',why:''}],
+    scene:{photo:'',title:'',why:''},newNames:'',r1:'',r2:'',r3:''};
+}
+function merge(d,s){
+  if(s==null||typeof s!==typeof d)return d;
+  if(Array.isArray(d)){if(!Array.isArray(s))return d;return d.map(function(x,i){return merge(x,s[i])})}
+  if(typeof d==='object'){var o={};for(var k in d)o[k]=merge(d[k],s[k]);return o}
+  return s;
+}
+var S=blank();
+try{var raw=localStorage.getItem(KEY);if(raw)S=merge(blank(),JSON.parse(raw))}catch(e){}
+
+var saveT=null,warned=false;
+/* 시크릿 창 등 저장이 아예 막힌 환경인지 미리 확인한다 */
+var canStore=(function(){try{localStorage.setItem(KEY+'_t','1');localStorage.removeItem(KEY+'_t');return true}catch(e){return false}})();
+function save(){if(!canStore)return;clearTimeout(saveT);saveT=setTimeout(function(){
+  try{localStorage.setItem(KEY,JSON.stringify(S))}
+  catch(e){if(!warned){warned=true;toast('저장 공간이 부족해서 새로고침하면 일부 사진이 사라질 수 있어요. 활동은 계속할 수 있어요.')}}
+},250)}
+function getP(p){return p.split('.').reduce(function(o,k){return o==null?undefined:o[k]},S)}
+function setP(p,v){var ks=p.split('.'),o=S;for(var i=0;i<ks.length-1;i++)o=o[ks[i]];o[ks[ks.length-1]]=v;save();refresh()}
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function $(id){return document.getElementById(id)}
+var tT;function toast(m){var t=$('toast');t.textContent=m;t.classList.add('show');clearTimeout(tT);tT=setTimeout(function(){t.classList.remove('show')},2600)}
+
+/* ---------- 화면 안 확인창 (일부 브라우저·앱 안에서는 confirm()이 막혀 있다) ---------- */
+function askConfirm(msg,yesLabel,onYes){
+  $('modalMsg').textContent=msg;$('modalYes').textContent=yesLabel;$('modal').hidden=false;
+  $('modalYes').onclick=function(){$('modal').hidden=true;onYes()};
+  $('modalNo').onclick=function(){$('modal').hidden=true};
+}
+
+/* ---------- 입력 연결 ---------- */
+var painters=[]; // 처음부터 할 때 모든 칸을 다시 그리기 위해 모아 둔다
+function bind(root){
+  root.querySelectorAll('[data-bind]').forEach(function(el){
+    var p=el.dataset.bind;
+    function paint(){var v=getP(p);el.value=v==null?'':v}
+    paint();painters.push(paint);
+    el.addEventListener('input',function(){setP(p,el.value)});
+  });
+  root.querySelectorAll('[data-choice]').forEach(bindChoice);
+  root.querySelectorAll('[data-photo]').forEach(setupPhoto);
+}
+function bindChoice(box){
+  var p=box.dataset.choice;
+  function paint(){var v=getP(p);box.querySelectorAll('button[data-val]').forEach(function(b){
+    var on=v===b.dataset.val;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on)})}
+  box.querySelectorAll('button[data-val]').forEach(function(b){b.addEventListener('click',function(){
+    var v=getP(p);v=(v===b.dataset.val&&box.hasAttribute('data-toggle'))?'':b.dataset.val;setP(p,v);paint();
+  })});
+  paint();painters.push(paint);
+}
+/* 사진 칸 자체가 버튼: 누르면 바로 카메라/앨범이 열린다 */
+function setupPhoto(box){
+  var p=box.dataset.photo,label=box.dataset.label||'사진';
+  box.innerHTML='<label class="ph-view" aria-label="'+esc(label)+' 올리기"><input type="file" accept="image/*" hidden><span class="ph-in"></span></label><button class="ph-del" type="button">사진 지우기</button>';
+  var view=box.querySelector('.ph-in'),inp=box.querySelector('input'),del=box.querySelector('.ph-del');
+  function paint(){var v=getP(p);
+    view.innerHTML=v?'<img alt="'+esc(label)+'"><span class="ph-cap">눌러서 바꾸기</span>':'<span class="ph-empty"><span class="ic">📷</span>눌러서<br>사진 올리기</span>';
+    if(v)view.querySelector('img').src=v;
+    del.hidden=!v;}
+  inp.addEventListener('change',function(){var f=inp.files&&inp.files[0];if(!f)return;
+    shrink(f).then(function(d){setP(p,d);paint()},function(){toast('사진을 불러오지 못했어요. 다시 해 보세요.')});inp.value='';});
+  del.addEventListener('click',function(){askConfirm('이 사진을 지울까요?','지우기',function(){setP(p,'');paint()})});
+  paint();painters.push(paint);
+}
+function shrink(file){return new Promise(function(res,rej){
+  var url=URL.createObjectURL(file),im=new Image();
+  im.onload=function(){var M=640,w=im.naturalWidth,h=im.naturalHeight,r=Math.min(1,M/Math.max(w,h));
+    w=Math.round(w*r);h=Math.round(h*r);var c=document.createElement('canvas');c.width=w;c.height=h;
+    c.getContext('2d').drawImage(im,0,0,w,h);URL.revokeObjectURL(url);res(c.toDataURL('image/jpeg',0.65))};
+  im.onerror=function(){URL.revokeObjectURL(url);rej()};im.src=url;
+})}
+
+/* ---------- 상태 판단 ---------- */
+function plantName(pl){var n=pl.name.trim();return n?(pl.nick==='1'?'(별명) '+n:n):''}
+function plantDone(pl){return !!(pl.photo&&pl.name.trim()&&pl.note.trim())}
+function screenDone(i){
+  if(i===0)return !!(S.sname.trim()&&S.group);
+  if(i===1)return !!S.knownNow.trim();
+  if(i===2)return S.plants.every(plantDone);
+  if(i===3)return !!S.scene.photo;
+  if(i===4)return !!S.r1.trim();
+}
+
+/* ---------- 화면 그리기 ---------- */
+function buildPlants(){
+  $('plants').innerHTML=S.plants.map(function(_,i){var b='plants.'+i+'.';
+    return '<div class="card plant" data-plant="'+i+'">'+
+      '<div class="plant-head">🌱 나의 식물 '+(i+1)+' <span class="badge no"></span></div>'+
+      '<div class="photo" data-photo="'+b+'photo" data-label="나의 식물 '+(i+1)+' 사진"></div>'+
+      '<div class="fields">'+
+        '<input type="text" data-bind="'+b+'name" placeholder="식물 이름" aria-label="식물 '+(i+1)+' 이름">'+
+        '<textarea data-bind="'+b+'note" placeholder="특징 (모양, 색, 크기, 냄새, 촉감 등을 자세히)" aria-label="식물 '+(i+1)+' 특징"></textarea>'+
+        '<input type="text" data-bind="'+b+'why" placeholder="이 식물을 고른 까닭" aria-label="식물 '+(i+1)+' 고른 까닭">'+
+        '<div class="choices" data-choice="'+b+'nick" data-toggle><button type="button" data-val="1" style="min-height:40px;font-size:.8rem">이름 대신 별명을 썼어요</button></div>'+
+      '</div></div>';
+  }).join('');
+  bind($('plants'));
+  paintPlants();
+}
+function paintPlants(){
+  $('plants').querySelectorAll('[data-plant]').forEach(function(c){
+    var pl=S.plants[+c.dataset.plant],d=plantDone(pl),bd=c.querySelector('.badge');
+    c.classList.toggle('done',d);bd.classList.toggle('no',!d);
+    var miss=[];if(!pl.photo)miss.push('사진');if(!pl.name.trim())miss.push('이름');if(!pl.note.trim())miss.push('특징');
+    bd.textContent=d?'✔ 완료':(miss.length===3?'＋ 시작 전':miss.join('·')+' 남음');
+  });
+}
+
+/* ---------- 이동 ---------- */
+function buildNav(){
+  $('nav').innerHTML=SCREENS.map(function(n,i){return '<button type="button" data-go="'+i+'">'+n+'<span class="ok"></span></button>'}).join('');
+  $('nav').querySelectorAll('[data-go]').forEach(function(b){b.addEventListener('click',function(){go(+b.dataset.go)})});
+}
+function go(i){
+  if(i<0||i>=SCREENS.length)return;
+  if(i>0&&!S.sname.trim()){toast('먼저 이름을 적어 주세요.');i=0}
+  S.screen=i;save();
+  document.querySelectorAll('.screen').forEach(function(s,k){s.classList.toggle('show',k===i)});
+  $('prevBtn').disabled=i===0;$('nextBtn').textContent=i===SCREENS.length-1?'끝 ✔':'다음 ▶';$('nextBtn').disabled=i===SCREENS.length-1;
+  refresh();window.scrollTo(0,0);
+}
+$('prevBtn').addEventListener('click',function(){go(S.screen-1)});
+$('nextBtn').addEventListener('click',function(){go(S.screen+1)});
+function refresh(){
+  $('nav').querySelectorAll('[data-go]').forEach(function(b,i){b.classList.toggle('cur',i===S.screen);b.querySelector('.ok').textContent=screenDone(i)?' ✔':''});
+  paintPlants();tick();
+}
+
+/* ---------- 집합 시각 ---------- */
+function tick(){
+  var c=$('clock');
+  if(!S.meet){c.textContent='⏰ 집합 시각 미정';c.classList.remove('warn');return}
+  var p=S.meet.split(':'),now=new Date(),t=new Date();t.setHours(+p[0],+p[1],0,0);
+  var m=Math.ceil((t-now)/60000);
+  if(m<=0){c.textContent='⚠ 집합 시간이에요! ('+S.meet+')';c.classList.add('warn')}
+  else if(m<=10){c.textContent='⚠ 집합까지 '+m+'분!';c.classList.add('warn')}
+  else{c.textContent='⏰ 집합까지 '+(m>=60?Math.floor(m/60)+'시간 '+(m%60)+'분':m+'분')+' ('+S.meet+')';c.classList.remove('warn')}
+}
+setInterval(tick,20000);
+
+/* ---------- 시연 모드, 초기화 ---------- */
+var demo=false;try{demo=localStorage.getItem(KEY+'_demo')==='1'}catch(e){}
+function paintDemo(){document.documentElement.classList.toggle('demo',demo);$('demoBtn').textContent=demo?'🔍 보통 크기':'🔍 크게 보기'}
+$('demoBtn').addEventListener('click',function(){demo=!demo;try{localStorage.setItem(KEY+'_demo',demo?'1':'0')}catch(e){}paintDemo()});
+$('resetBtn').addEventListener('click',function(){
+  askConfirm('모든 입력과 사진을 지우고 처음부터 할까요?\n(결과 카드를 저장하지 않았다면 먼저 저장하세요.)','처음부터 하기',function(){
+    try{localStorage.removeItem(KEY)}catch(e){}
+    // 새로고침 없이 그 자리에서 비운다 (새로고침이 막힌 환경에서도 작동)
+    S=blank();
+    painters.forEach(function(f){f()});
+    lastCanvas=null;$('cardImg').hidden=true;$('saveNote').hidden=true;$('saveImg').disabled=true;$('makeCard').textContent='🪪 결과 카드 만들기';
+    go(0);toast('처음부터 다시 시작해요.');
+  });
+});
+
+/* ---------- 결과 카드 ---------- */
+function who(){return ((S.sid.trim()+' '+S.sname.trim()).trim()||'이름 미입력')+(S.group?' · '+S.group+'모둠':'')+(S.role?' · '+S.role:'')}
+function cardText(){
+  var L=[];
+  L.push('🙋 태화강 국가정원 개인 미션 결과 (2026. 11. 7.)');
+  L.push(who());
+  L.push('');
+  L.push('처음에 알던 식물: '+(S.knownNow.trim()||'-'));
+  L.push('새로 알게 된 식물: '+(S.newNames.trim()||'-'));
+  L.push('');
+  S.plants.forEach(function(p,i){
+    L.push('🌱 나의 식물 '+(i+1)+': '+(plantName(p)||'(미완성)'));
+    if(p.note.trim())L.push('   특징: '+p.note.trim().replace(/\n/g,' '));
+    if(p.why.trim())L.push('   고른 까닭: '+p.why.trim());
+  });
+  L.push('');
+  L.push('📸 나만의 한 장면: '+(S.scene.title.trim()||'-')+(S.scene.why.trim()?' — '+S.scene.why.trim():''));
+  L.push('');
+  L.push('💡 새로 알게 된 사실: '+(S.r1.trim()||'-'));
+  L.push('🏫 우리 동네에서도 본 식물: '+(S.r2.trim()||'-'));
+  L.push('🤝 모둠 활동 돌아보기: '+(S.r3.trim()||'-'));
+  return L.join('\n');
+}
+function loadImg(src){return new Promise(function(r){if(!src)return r(null);var im=new Image();im.onload=function(){r(im)};im.onerror=function(){r(null)};im.src=src})}
+function wrap(ctx,text,x,y,maxW,lh){
+  var lines=[];String(text).split('\n').forEach(function(pa){var cur='';for(var i=0;i<pa.length;i++){var t=cur+pa[i];if(ctx.measureText(t).width>maxW&&cur){lines.push(cur);cur=pa[i]}else cur=t}lines.push(cur)});
+  lines.forEach(function(l,i){ctx.fillText(l,x,y+i*lh)});
+  return y+lines.length*lh;
+}
+function cover(ctx,im,x,y,w,h){var r=Math.max(w/im.width,h/im.height),sw=w/r,sh=h/r;ctx.drawImage(im,(im.width-sw)/2,(im.height-sh)/2,sw,sh,x,y,w,h)}
+function rr(ctx,x,y,w,h,r,fill,stroke){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();
+  if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=2;ctx.stroke()}}
+var FONT='"Malgun Gothic","Apple SD Gothic Neo","Noto Sans KR",sans-serif';
+var lastCanvas=null;
+function photoBox(ctx,im,x,y,w,h){
+  if(im){ctx.save();rr(ctx,x,y,w,h,12);ctx.clip();cover(ctx,im,x,y,w,h);ctx.restore()}
+  else{rr(ctx,x,y,w,h,12,'#f1ede4');ctx.fillStyle='#8a8478';ctx.font='20px '+FONT;ctx.fillText('사진 없음',x+w/2-42,y+h/2-12)}
+}
+$('makeCard').addEventListener('click',function(){
+  var btn=this;btn.disabled=true;btn.textContent='만드는 중...';
+  Promise.all([loadImg(S.plants[0].photo),loadImg(S.plants[1].photo),loadImg(S.scene.photo)]).then(function(imgs){
+    var W=1000,P=36,c=document.createElement('canvas');c.width=W;c.height=5000;var ctx=c.getContext('2d');
+    ctx.fillStyle='#fff';ctx.fillRect(0,0,W,c.height);ctx.textBaseline='top';
+    rr(ctx,0,0,W,140,0,'#efeafb');
+    ctx.fillStyle='#1c2a21';ctx.font='bold 34px '+FONT;ctx.fillText('🙋 태화강 국가정원 개인 미션',P,26);
+    ctx.font='bold 23px '+FONT;ctx.fillStyle='#5b3fa0';var y=wrap(ctx,who()+'  ·  2026. 11. 7. (토)',P,78,W-2*P,30);
+    y=Math.max(y,140)+24;
+    // 처음에 알던 식물과 새로 알게 된 식물
+    ctx.font='19px '+FONT;ctx.fillStyle='#4b5b51';
+    y=wrap(ctx,'처음에 알던 식물: '+(S.knownNow.trim()||'-'),P,y,W-2*P,28);
+    ctx.fillStyle='#1c2a21';ctx.font='bold 20px '+FONT;
+    y=wrap(ctx,'🌱 새로 알게 된 식물: '+(S.newNames.trim()||'-'),P,y+6,W-2*P,28)+20;
+    // 나의 식물 2개
+    var cw=(W-2*P-16)/2;
+    var tops=[];var maxH=0;
+    S.plants.forEach(function(p,i){
+      var x=P+i*(cw+16),yy=y;
+      tops.push(x);
+      photoBox(ctx,imgs[i],x+12,yy+12,cw-24,260);
+      yy+=284;
+      ctx.fillStyle='#4b5b51';ctx.font='17px '+FONT;ctx.fillText('🌱 나의 식물 '+(i+1),x+14,yy);yy+=26;
+      ctx.fillStyle='#1c2a21';ctx.font='bold 24px '+FONT;yy=wrap(ctx,plantName(p)||'(미완성)',x+14,yy,cw-28,30)+4;
+      ctx.font='18px '+FONT;yy=wrap(ctx,p.note.trim()||'-',x+14,yy,cw-28,26)+4;
+      if(p.why.trim()){ctx.fillStyle='#5b3fa0';yy=wrap(ctx,'고른 까닭: '+p.why.trim(),x+14,yy,cw-28,26)}
+      maxH=Math.max(maxH,yy-y+14);
+    });
+    // 카드 테두리는 내용 높이에 맞춰 나중에 그림
+    S.plants.forEach(function(p,i){rr(ctx,P+i*(cw+16),y,cw,maxH,16,null,plantDone(p)?'#5b3fa0':'#d6cfbf')});
+    y+=maxH+28;
+    // 한 장면
+    ctx.fillStyle='#1c2a21';ctx.font='bold 26px '+FONT;ctx.fillText('📸 나만의 한 장면',P,y);y+=42;
+    photoBox(ctx,imgs[2],P,y,W-2*P,420);y+=436;
+    ctx.font='bold 22px '+FONT;y=wrap(ctx,S.scene.title.trim()||'-',P,y,W-2*P,30);
+    ctx.font='19px '+FONT;ctx.fillStyle='#4b5b51';y=wrap(ctx,S.scene.why.trim(),P,y+2,W-2*P,28)+24;
+    // 돌아보기
+    ctx.fillStyle='#1c2a21';ctx.font='bold 26px '+FONT;ctx.fillText('💭 돌아보기',P,y);y+=42;
+    [['💡 새로 알게 된 사실',S.r1],['🏫 우리 동네에서도 본 식물',S.r2],['🤝 모둠 활동 돌아보기',S.r3]].forEach(function(r){
+      ctx.font='bold 20px '+FONT;ctx.fillStyle='#5b3fa0';ctx.fillText(r[0],P,y);y+=30;
+      ctx.font='19px '+FONT;ctx.fillStyle='#1c2a21';y=wrap(ctx,(r[1]||'').trim()||'-',P+8,y,W-2*P-8,28)+14;
+    });
+    y+=10;ctx.fillStyle='#4b5b51';ctx.font='15px '+FONT;ctx.fillText('중학교 과학 현장 체험 · 태화강 국가정원',P,y);y+=36;
+    var out=document.createElement('canvas');out.width=W;out.height=y;
+    var o=out.getContext('2d');o.fillStyle='#fff';o.fillRect(0,0,W,y);o.drawImage(c,0,0);
+    o.strokeStyle='#5b3fa0';o.lineWidth=6;o.strokeRect(3,3,W-6,y-6);
+    lastCanvas=out;
+    var img=$('cardImg');img.src=out.toDataURL('image/png');img.hidden=false;$('saveNote').hidden=false;$('saveImg').disabled=false;
+    btn.disabled=false;btn.textContent='🪪 결과 카드 다시 만들기';toast('결과 카드를 만들었어요!');
+  }).catch(function(){btn.disabled=false;btn.textContent='🪪 결과 카드 만들기';toast('결과 카드를 만들지 못했어요. 다시 눌러 보세요.')});
+});
+$('saveImg').addEventListener('click',function(){
+  if(!lastCanvas)return;var name=(S.sid.trim()||'')+(S.sname.trim()||'개인')+'_태화강_개인미션.png';
+  try{lastCanvas.toBlob(function(b){if(!b){toast('그림을 길게 눌러 저장하세요.');return}
+    var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=name;document.body.appendChild(a);a.click();
+    setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},1500);toast('이미지를 저장했어요.')},'image/png')}
+  catch(e){toast('그림을 길게 눌러 저장하세요.')}
+});
+$('copyTxt').addEventListener('click',function(){
+  var t=cardText();
+  function fb(){var ta=document.createElement('textarea');ta.value=t;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();
+    var ok=false;try{ok=document.execCommand('copy')}catch(e){}ta.remove();toast(ok?'텍스트를 복사했어요.':'복사에 실패했어요. 이미지 저장을 이용하세요.')}
+  if(navigator.clipboard&&window.isSecureContext)navigator.clipboard.writeText(t).then(function(){toast('텍스트를 복사했어요.')},fb);else fb();
+});
+
+/* ---------- 시작 ---------- */
+buildNav();buildPlants();
+bind($('s0'));bind($('s1'));bind($('s3'));bind($('s4'));
+paintDemo();go(S.screen||0);
+if(!canStore)toast('이 창에서는 입력 내용이 저장되지 않아요. 새로고침하지 말고 끝까지 해요.');
+})();
+</script>
+</body>
+</html>
