@@ -3,18 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>태화강 모둠 미션</title>
+<title>현장 체험 개인 미션</title>
 <style>
 :root{
-  --bg:#f7fbf4; --card:#ffffff; --ink:#1c2a21; --sub:#4b5b51; --line:#d3e1d6;
+  --bg:#fbf8f2; --card:#ffffff; --ink:#1c2a21; --sub:#4b5b51; --line:#e2dccd;
   --green:#2b7a4b; --green-l:#e4f3e8; --blue:#245f9e; --blue-l:#e6effa;
-  --yellow-l:#fff5d1; --orange:#a8510a; --red:#b42318; --fs:18px;
+  --yellow-l:#fff5d1; --purple:#5b3fa0; --purple-l:#efeafb; --red:#b42318; --fs:18px;
 }
 html.demo{--fs:24px}
 *{box-sizing:border-box}
 html{font-size:var(--fs)}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:"Malgun Gothic","Apple SD Gothic Neo","Noto Sans KR",sans-serif;line-height:1.6;word-break:keep-all}
-button,input,textarea,select{font:inherit;color:inherit}
+button,input,textarea{font:inherit;color:inherit}
 header{position:sticky;top:0;z-index:20;background:#fff;border-bottom:2px solid var(--line)}
 .top{display:flex;align-items:center;gap:8px;padding:8px 12px;flex-wrap:wrap}
 .top h1{font-size:1.05rem;margin:0;flex:1;min-width:160px}
@@ -23,8 +23,7 @@ header{position:sticky;top:0;z-index:20;background:#fff;border-bottom:2px solid 
 .small-btn{min-height:40px;padding:4px 12px;border-radius:10px;border:2px solid var(--line);background:#fff;cursor:pointer;font-size:.85rem;font-weight:700}
 nav{display:flex;gap:6px;overflow-x:auto;padding:4px 12px 10px}
 nav button{white-space:nowrap;min-height:44px;padding:4px 14px;border-radius:999px;border:2px solid var(--line);background:#fff;cursor:pointer;font-weight:700;font-size:.9rem}
-nav button.cur{background:var(--green);border-color:var(--green);color:#fff}
-nav button .ok{margin-left:4px}
+nav button.cur{background:var(--purple);border-color:var(--purple);color:#fff}
 main{max-width:860px;margin:0 auto;padding:16px 16px 120px}
 .screen{display:none}
 .screen.show{display:block}
@@ -34,53 +33,40 @@ h3{font-size:1.1rem;margin:1em 0 .4em}
 .story{background:var(--yellow-l);border-color:#efd98a}
 .tip{background:var(--blue-l);border-color:#bcd2ee}
 .muted{color:var(--sub);font-size:.9rem}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:52px;padding:8px 18px;border-radius:14px;border:2px solid var(--green);background:var(--green);color:#fff;font-weight:700;cursor:pointer;text-align:center}
-.btn.ghost{background:#fff;color:var(--green)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:52px;padding:8px 18px;border-radius:14px;border:2px solid var(--purple);background:var(--purple);color:#fff;font-weight:700;cursor:pointer;text-align:center}
+.btn.ghost{background:#fff;color:var(--purple)}
 .btn.blue{background:var(--blue);border-color:var(--blue)}
 .btn:disabled{opacity:.5;cursor:default}
 .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 .grow{flex:1}
 label.f{display:block;font-weight:700;margin:14px 0 6px}
 input[type=text],input[type=number],input[type=time],textarea{width:100%;padding:12px;border:2px solid var(--line);border-radius:12px;background:#fff;font-size:1rem}
-input:focus,textarea:focus{outline:3px solid #9cc9ad;border-color:var(--green)}
+input:focus,textarea:focus{outline:3px solid #c6b8ea;border-color:var(--purple)}
 textarea{min-height:80px;resize:vertical}
 .choices{display:flex;flex-wrap:wrap;gap:8px}
 .choices button{min-height:48px;padding:6px 14px;border-radius:12px;border:2px solid var(--line);background:#fff;cursor:pointer;font-weight:600}
-.choices button.on{background:var(--green-l);border-color:var(--green);color:#14532d}
+.choices button.on{background:var(--purple-l);border-color:var(--purple);color:#3b2775}
 .choices button.on::before{content:"✔ "}
 .groups{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.groups button{min-height:64px;font-size:1.1rem}
-.members{display:grid;grid-template-columns:110px 1fr;gap:8px;align-items:center}
-.members span{font-weight:700;color:var(--sub);font-size:.9rem}
+.groups button{min-height:56px}
+.two{display:grid;grid-template-columns:1fr 2fr;gap:8px}
 ul.rules{margin:.3em 0;padding-left:1.2em}
-ul.rules li{margin:.2em 0}
 .bottom{position:fixed;left:0;right:0;bottom:0;z-index:15;background:rgba(255,255,255,.96);border-top:2px solid var(--line);padding:10px 16px}
 .bottom .in{max-width:860px;margin:0 auto;display:flex;gap:10px}
 .bottom .btn{flex:1}
-.prog{height:22px;background:#e9efe9;border-radius:999px;overflow:hidden;border:2px solid var(--line)}
-.prog i{display:block;height:100%;background:repeating-linear-gradient(45deg,#3f9a63,#3f9a63 10px,#2b7a4b 10px,#2b7a4b 20px);transition:width .3s}
-.zone{margin:18px 0}
-.zone h3{display:flex;align-items:center;gap:8px;margin:0 0 4px}
-.slots{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
-.slot{display:grid;grid-template-columns:120px 1fr;gap:10px;padding:10px;border-radius:16px;border:2px dashed #a9bfae;background:#fff}
-.slot.done{border-style:solid;border-color:var(--green);background:var(--green-l)}
-.slot-head{grid-column:1/-1;display:flex;align-items:center;gap:8px;font-weight:700}
-.slot .fields{display:flex;flex-direction:column;gap:8px}
-.slot input[type=text]{padding:10px}
-.slot textarea{min-height:76px;padding:10px}
-.badge{display:inline-block;font-size:.75rem;font-weight:700;padding:1px 8px;border-radius:999px;background:#fff;border:2px solid var(--green);color:var(--green)}
-.badge.no{border-color:#a9bfae;color:var(--sub)}
+.plant{display:grid;grid-template-columns:150px 1fr;gap:12px}
+.plant.done{border-color:var(--purple);background:#faf8ff}
+.plant-head{grid-column:1/-1;display:flex;align-items:center;gap:8px;font-weight:700;font-size:1.05rem}
+.fields{display:flex;flex-direction:column;gap:8px}
+.badge{display:inline-block;font-size:.75rem;font-weight:700;padding:1px 8px;border-radius:999px;background:#fff;border:2px solid var(--purple);color:var(--purple)}
+.badge.no{border-color:#c9c1ad;color:var(--sub)}
 .ph-view{display:block;position:relative;cursor:pointer;border-radius:12px;overflow:hidden}
-.ph-view img{display:block;width:100%;height:150px;object-fit:cover;background:#eef3ee}
-.ph-empty{height:150px;border-radius:12px;background:#eef3ee;border:2px dashed #a9bfae;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--green);font-weight:700;text-align:center;line-height:1.4;font-size:.9rem}
+.ph-view img{display:block;width:100%;height:150px;object-fit:cover;background:#f1ede4}
+.ph-empty{height:150px;border-radius:12px;background:#f4f0ff;border:2px dashed #b9a9e3;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--purple);font-weight:700;text-align:center;line-height:1.4;font-size:.9rem}
 .ph-empty .ic{font-size:2rem}
 .ph-cap{position:absolute;left:0;right:0;bottom:0;background:rgba(0,0,0,.55);color:#fff;font-size:.75rem;text-align:center;padding:2px}
 .ph-del{margin-top:6px;width:100%;min-height:36px;border:2px solid var(--line);background:#fff;border-radius:10px;font-size:.8rem;color:var(--sub);cursor:pointer}
-.slot .ph-view img,.slot .ph-empty{height:120px}
-.bonus{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.bonus .card{margin:0}
-.bonus .ph-empty{height:110px}
-.group-photo .ph-view img,.group-photo .ph-empty{height:240px}
+.scene .ph-view img,.scene .ph-empty{height:220px}
 #cardImg{width:100%;border:2px solid var(--line);border-radius:12px;margin-top:10px;background:#fff}
 .toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%);background:#1c2a21;color:#fff;padding:10px 18px;border-radius:12px;z-index:60;opacity:0;transition:opacity .3s;pointer-events:none;max-width:90vw;text-align:center}
 .toast.show{opacity:1}
@@ -89,17 +75,15 @@ ul.rules li{margin:.2em 0}
 .modal .box{background:#fff;border-radius:18px;padding:20px;max-width:440px;width:100%;border:2px solid var(--line)}
 .modal p{margin:0 0 16px;white-space:pre-line;font-weight:700}
 @media (max-width:560px){
-  .slots,.bonus{grid-template-columns:1fr}
-  .slot{grid-template-columns:110px 1fr}
-  .groups{grid-template-columns:repeat(3,1fr)}
-  .members{grid-template-columns:90px 1fr}
+  .plant{grid-template-columns:120px 1fr}
+  .plant .ph-view img,.plant .ph-empty{height:120px}
 }
 </style>
 </head>
 <body>
 <header>
   <div class="top">
-    <h1>🌿 태화강 국가정원 <span style="color:var(--green)">모둠 미션</span></h1>
+    <h1>🙋 UNIST · 태화강 <span style="color:var(--purple)">개인 미션</span></h1>
     <span class="chip" id="clock">⏰ 집합 시각 미정</span>
     <button class="small-btn" id="demoBtn" type="button">🔍 크게 보기</button>
     <button class="small-btn" id="resetBtn" type="button">↺ 처음부터</button>
@@ -110,96 +94,112 @@ ul.rules li{margin:.2em 0}
 <main>
 <!-- 0. 시작 -->
 <section class="screen" id="s0">
-  <h2>모둠 정보 입력</h2>
-  <p class="muted"><b>기록 담당</b>의 휴대폰(또는 태블릿) 하나로 모둠 전체가 함께 활동해요. 모둠장이 아니어도 괜찮아요. 탐방 시간(14:00~15:30)에는 <b>모둠 미션에 집중</b>해요. 개인 미션은 현장에서 사진 1장만 찍고, 나머지는 돌아오는 버스에서 해요.</p>
+  <h2>나의 정보</h2>
+  <p class="muted">이 파일은 <b>내 휴대폰으로 나 혼자</b> 해요. 모둠이 함께 하는 식물 6개 찾기는 기록 담당 휴대폰의 <b>모둠 미션</b>으로 해요.</p>
   <div class="card story">
-    <b>🤝 역할을 나눠요</b> <span class="muted">(식물마다 돌아가며 바꿔도 좋아요)</span>
+    <b>🗓 개인 미션은 언제 하나요?</b>
     <ul class="rules">
-      <li>📷 <b>사진 담당</b>: 식물 사진을 찍어요.</li>
-      <li>🔍 <b>이름 탐정</b>: 안내판이나 렌즈 검색으로 이름을 찾아요.</li>
-      <li>✍️ <b>기록 담당</b>: 모둠 미션 휴대폰을 들고, 모둠원이 말한 특징을 받아 적어요. 결과 카드도 올려요.</li>
-      <li>⏰ <b>시간·안전 지킴이</b>: 집합 시각과 안전 규칙을 챙겨요.</li>
+      <li>🚌 <b>점심 먹고 태화강 가는 길</b>: 생각 열기</li>
+      <li>🌿 <b>태화강 탐방</b> (14:00~15:30): <b>모둠 미션에 집중!</b> 개인 미션은 <b>한 장면 사진 1장</b>만 찍어요.</li>
+      <li>🚌 <b>돌아오는 버스</b> (15:30~): UNIST 돌아보기, 태화강 돌아보기, 결과 카드 올리기</li>
     </ul>
   </div>
   <div class="card">
-    <label class="f">우리 모둠 번호</label>
+    <div class="two">
+      <div><label class="f" for="sid">학번</label><input type="text" id="sid" inputmode="numeric" data-bind="sid" placeholder="예: 20301"></div>
+      <div><label class="f" for="sname">이름</label><input type="text" id="sname" data-bind="sname" placeholder="이름"></div>
+    </div>
+    <label class="f">우리 모둠</label>
     <div class="choices groups" data-choice="group">
       <button type="button" data-val="1">1모둠</button><button type="button" data-val="2">2모둠</button>
       <button type="button" data-val="3">3모둠</button><button type="button" data-val="4">4모둠</button>
       <button type="button" data-val="5">5모둠</button><button type="button" data-val="6">6모둠</button>    </div>
-    <label class="f">모둠원 학번과 이름 <span class="muted">(4명이면 마지막 칸은 비워 두세요)</span></label>
-    <div class="members" id="members"></div>
+    <label class="f">모둠에서 내가 맡은 역할</label>
+    <div class="choices" data-choice="role">
+      <button type="button" data-val="📷 사진 담당">📷 사진 담당</button><button type="button" data-val="🔍 이름 탐정">🔍 이름 탐정</button>
+      <button type="button" data-val="✍️ 기록 담당">✍️ 기록 담당</button><button type="button" data-val="⏰ 시간·안전 지킴이">⏰ 시간·안전 지킴이</button>
+    </div>
   </div>
   <div class="card">
     <label class="f" for="meet">⏰ 선생님이 알려 준 집합 시각</label>
     <input type="time" id="meet" data-bind="meet">
-    <p class="muted">입력하면 화면 위에 집합까지 남은 시간이 보여요.</p>
   </div>
   <div class="card tip">
-    <b>⚠ 꼭 지켜요</b>
+    <b>⚠ 혼자 하는 미션이어도 모둠과 함께 다녀요!</b>
     <ul class="rules">
-      <li>모둠원은 <b>항상 함께</b> 다녀요. 혼자 떨어지지 않아요.</li>
-      <li>강가 <b>난간이나 울타리 밖으로 나가지 않아요.</b></li>
-      <li>식물은 <b>꺾거나 뽑지 않아요.</b> 사진으로만 가져가요.</li>
-      <li>정원의 다른 방문객에게 피해를 주지 않아요.</li>
-      <li>집합 시각 <b>5분 전</b>에는 집합 장소로 출발해요.</li>
+      <li>한 장면 사진은 모둠이 같이 이동하는 길에서 찍어요.</li>
+      <li>강가 난간 밖으로 나가지 않고, 식물은 꺾지 않아요.</li>
     </ul>
   </div>
 </section>
 
-<!-- 1. 미션 안내 -->
+<!-- 1. 생각 열기 -->
 <section class="screen" id="s1">
-  <h2>오늘의 미션</h2>
+  <h2>생각 열기</h2>
   <div class="card story">
-    <p style="margin-top:0">길을 걷다 보면 매일 수많은 식물을 지나쳐요. 그런데 그중에서 <b>이름을 아는 식물은 몇 개나 될까요?</b></p>
-    <p style="margin-bottom:0">오늘은 태화강 국가정원에서 식물에게 이름을 찾아 주는 <b>식물 탐정</b>이 되어 봐요. 🕵️</p>
+    <p style="margin:0">우리 학교 화단, 집 앞 길가, 아파트 화단… 매일 지나가는 곳에도 식물이 가득해요. 그런데 <b>내가 이름을 부를 수 있는 식물은 몇 개일까요?</b> 🤔</p>
   </div>
   <div class="card">
-    <h3 style="margin-top:0">🎯 미션: 식물 6개 찾기</h3>
-    <p>어디서 찾을지는 <b>우리 모둠이 정해요.</b> 서로 다른 장소에서 찾으면 더 다양한 식물을 만날 수 있어요!</p>
-    <p class="muted">장소 예시: 강가 산책로, 십리대숲, 꽃밭, 잔디밭, 연못 주변, 길가 화단 …</p>
-    <p>식물마다 <b>① 사진 칸 눌러서 사진 올리기 → ② 이름 쓰기 → ③ 특징 쓰기</b>를 해요.</p>
-    <p class="muted">이름은 안내판, 휴대폰 렌즈 검색, 선생님께 물어보기 등 어떤 방법으로 찾아도 좋아요. 끝까지 못 찾으면 모둠이 <b>별명</b>을 지어 주세요!</p>
+    <label class="f" for="knownNow">지금 이름을 아는 식물을 생각나는 대로 모두 적어 보세요.</label>
+    <textarea id="knownNow" data-bind="knownNow" placeholder="예: 소나무, 민들레, 장미, ..."></textarea>
   </div>
-  <div class="card tip"><b>⭐ 보너스 미션</b>도 있어요. 식물 6개를 다 찾고 시간이 남으면 도전해 보세요!</div>
 </section>
 
-<!-- 2. 식물 찾기 -->
+<!-- 2. 오늘의 한 장면 (현장) -->
 <section class="screen" id="s2">
-  <h2>식물 6개 찾기</h2>
-  <div class="row"><b>찾은 식물</b><span id="cnt" class="grow" style="font-weight:700;color:var(--green)">0 / 6</span></div>
-  <div class="prog" aria-hidden="true"><i id="progBar" style="width:0"></i></div>
-  <p class="muted">📷 사진 칸을 누르면 바로 사진을 찍거나 고를 수 있어요. 장소, 이름, 특징 칸을 누르면 바로 쓸 수 있어요. 모두 채우면 ✔ 완료!</p>
-  <div id="zones"></div>
+  <h2>① 나만의 한 장면 <span class="muted" style="font-size:.7em">🌿 현장에서</span></h2>
+  <p class="muted">현장에서 할 개인 미션은 <b>이것 하나</b>예요. 탐방하는 동안 <b>가장 기억에 남는 장면</b>을 한 장 찍어요. 식물, 풍경, 하늘, 새… 무엇이든 좋아요. 제목과 까닭은 버스에서 써도 돼요.</p>
+  <div class="card scene">
+    <div class="photo" data-photo="scene.photo" data-label="한 장면 사진"></div>
+    <label class="f" for="sceneTitle">사진 제목</label>
+    <input type="text" id="sceneTitle" data-bind="scene.title" placeholder="예: 바람에 흔들리는 대숲">
+    <label class="f" for="sceneWhy">이 장면을 고른 까닭</label>
+    <textarea id="sceneWhy" data-bind="scene.why" placeholder="예: 대나무 사이로 햇빛이 들어오는 모습이 예뻤다."></textarea>
+  </div>
 </section>
 
-<!-- 3. 보너스 -->
+<!-- 3. UNIST 돌아보기 (버스) -->
 <section class="screen" id="s3">
-  <h2>⭐ 보너스 미션</h2>
-  <p class="muted">시간이 남으면 도전해요. 하고 싶은 것만 골라서 해도 돼요.</p>
-  <div class="bonus" id="bonus"></div>
-</section>
-
-<!-- 4. 마무리 -->
-<section class="screen" id="s4">
-  <h2>마무리와 결과 카드</h2>
-  <div class="card">
-    <h3 style="margin-top:0">📸 모둠 단체 사진</h3>
-    <p class="muted" style="margin-top:0">모둠원 모두가 나오게 찍어요. 오늘 찾은 식물이나 태화강 풍경이 함께 나오면 더 좋아요! 이 사진은 결과 카드 맨 위에 들어가요.</p>
-    <div class="photo group-photo" data-photo="groupPhoto" data-label="단체 사진"></div>
+  <h2>② UNIST 돌아보기 <span class="muted" style="font-size:.7em">🚌 버스에서</span></h2>
+  <div class="card story">
+    <p style="margin:0">오늘 오전에는 UNIST에서 <b>캠퍼스 투어, 화학 특강, 화학 실험</b>을 했어요. 기억이 사라지기 전에 적어 봐요. 🧪</p>
   </div>
   <div class="card">
-    <h3 style="margin-top:0">🏆 우리 모둠 최고의 식물</h3>
-    <div class="choices" id="bestPick" data-choice="best"></div>
-    <label class="f" for="bestWhy">고른 까닭은?</label>
-    <input type="text" id="bestWhy" data-bind="bestWhy" placeholder="예: 잎이 손바닥보다 커서 신기했다.">
+    <label class="f" for="u1">UNIST에서 한 실험이나 들은 특강 중 가장 기억에 남는 것은? 왜 기억에 남나요?</label>
+    <textarea id="u1" data-bind="u1" placeholder="예: 용액의 색이 갑자기 바뀌는 실험이 신기했다. 왜 색이 바뀌는지 궁금했다."></textarea>
+    <label class="f" for="u3">대학 캠퍼스를 둘러보며 든 생각이나 궁금해진 점은? <span class="muted">(자유롭게)</span></label>
+    <textarea id="u3" data-bind="u3" placeholder="예: 대학에서는 이런 연구를 하는구나. 나도 실험실에서 연구해 보고 싶다."></textarea>
+  </div>
+</section>
+
+<!-- 4. 태화강 돌아보기 (버스) -->
+<section class="screen" id="s4">
+  <h2>③ 태화강 돌아보기와 결과 카드 <span class="muted" style="font-size:.7em">🚌 버스에서</span></h2>
+  <div class="card">
+    <h3 style="margin-top:0">🌱 오늘 새로 알게 된 식물</h3>
+    <label class="f" for="newNames">오늘 새로 이름을 알게 된 식물을 적어 보세요. <span class="muted">(모둠 미션 포함)</span></label>
+    <input type="text" id="newNames" data-bind="newNames" placeholder="예: 억새, 꽃댕강나무, ...">
+  </div>
+  <div class="card">
+    <h3 style="margin-top:0">💭 생각 나누기</h3>
+    <label class="f" for="r1">오늘 활동에서 새로 알게 된 사실이나 놀라웠던 점은?</label>
+    <textarea id="r1" data-bind="r1"></textarea>
+    <label class="f" for="r2">오늘 본 식물 중 우리 학교나 집 근처에서도 본 식물이 있나요? 어디서 봤나요?</label>
+    <textarea id="r2" data-bind="r2"></textarea>
+    <label class="f" for="r3">모둠 활동에서 내가 잘한 점 또는 친구에게 고마웠던 점은?</label>
+    <textarea id="r3" data-bind="r3"></textarea>
+  </div>
+  <div class="card story">
+    <h3 style="margin-top:0">✨ 오늘 과학-생태 캠프 소감</h3>
+    <label class="f" for="camp" style="margin-top:0">오전 UNIST 과학탐구부터 오후 태화강 생태탐구까지, 오늘 하루 캠프는 어땠나요? 느낀 점을 자유롭게 써 보세요.</label>
+    <textarea id="camp" data-bind="camp" placeholder="예: 대학 실험실에서 실험해 보고, 자연에서 식물을 직접 찾아보니 과학이 교과서 밖에도 있다는 것을 느꼈다."></textarea>
   </div>
   <div class="card tip">
-    <h3 style="margin-top:0">📤 패들렛에 모둠 결과 카드 올리기</h3>
+    <h3 style="margin-top:0">📤 패들렛에 개인 결과 카드 올리기</h3>
     <ol style="margin:0;padding-left:1.3em">
       <li><b>🪪 결과 카드 만들기</b>를 눌러요.</li>
       <li><b>🖼 이미지 저장</b>을 눌러요. 휴대폰의 사진첩이나 '다운로드' 폴더에 저장돼요.</li>
-      <li><b>📌 패들렛 열기</b>를 누르고 <b>＋</b>를 눌러 저장한 사진을 올려요. 제목에는 <b>"○모둠"</b>이라고 적어요.</li>
+      <li><b>📌 패들렛 열기</b>를 누르고 <b>＋</b>를 눌러 저장한 사진을 올려요. 제목에는 <b>학번과 이름</b>을 적어요.</li>
     </ol>
     <p class="muted" style="margin:6px 0 0">사진 대신 글로 올리고 싶으면 <b>텍스트 복사</b>를 눌러 패들렛 게시물에 붙여넣어요.</p>
     <div class="row" style="margin-top:12px">
@@ -218,7 +218,6 @@ ul.rules li{margin:.2em 0}
   <button class="btn ghost" id="prevBtn" type="button">◀ 이전</button>
   <button class="btn" id="nextBtn" type="button">다음 ▶</button>
 </div></div>
-
 <div class="toast" id="toast"></div>
 <div class="modal" id="modal" role="dialog" aria-modal="true" hidden><div class="box">
   <p id="modalMsg"></p>
@@ -228,27 +227,16 @@ ul.rules li{margin:.2em 0}
 <script>
 (function(){
 'use strict';
-var KEY='taehwa_group_mission_v1';
-var N=6; // 찾을 식물 수
-var BONUS=[
-  {ic:'✋',t:'내 손바닥보다 큰 잎 찾기',ph:'어떤 식물의 잎이었나요?'},
-  {ic:'🌰',t:'열매나 씨앗 찾기',ph:'어떤 모양, 어떤 색이었나요?'},
-  {ic:'🍁',t:'빨갛거나 노랗게 물든 잎 찾기',ph:'어떤 나무였나요?'},
-  {ic:'🐞',t:'식물에 찾아온 곤충이나 새 찾기',ph:'무엇이 무엇을 하고 있었나요?'},
-  {ic:'🎋',t:'대나무 줄기의 마디 세기 (손 닿는 곳까지)',ph:'마디는 몇 개였나요? 마디 사이 길이는?'},
-  {ic:'👃',t:'향기가 나는 식물 찾기',ph:'어떤 향기였나요?'}
-];
-var SCREENS=['시작','미션 안내','① 식물 찾기','② 보너스','③ 마무리'];
+var KEY='taehwa_solo_mission_v1';
+var SCREENS=['나의 정보','생각 열기','① 한 장면 🌿','② UNIST 🚌','③ 태화강 🚌'];
 
 function blank(){
-  var p=[],i;for(i=0;i<N;i++)p.push({photo:'',place:'',name:'',nick:'',note:''});
-  var b=[];for(i=0;i<BONUS.length;i++)b.push({photo:'',note:''});
-  var m=[];for(i=0;i<5;i++)m.push({id:'',name:''});
-  return {screen:0,group:'',members:m,meet:'',plants:p,bonus:b,groupPhoto:'',best:'',bestWhy:''};
+  return {screen:0,sid:'',sname:'',group:'',role:'',meet:'',knownNow:'',
+    scene:{photo:'',title:'',why:''},u1:'',u3:'',newNames:'',r1:'',r2:'',r3:'',camp:''};
 }
 function merge(d,s){
   if(s==null||typeof s!==typeof d)return d;
-  if(Array.isArray(d)){if(!Array.isArray(s))return d;if(typeof d[0]!=='object'||d[0]===undefined)return s;return d.map(function(x,i){return merge(x,s[i])})}
+  if(Array.isArray(d)){if(!Array.isArray(s))return d;return d.map(function(x,i){return merge(x,s[i])})}
   if(typeof d==='object'){var o={};for(var k in d)o[k]=merge(d[k],s[k]);return o}
   return s;
 }
@@ -288,14 +276,11 @@ function bind(root){
   root.querySelectorAll('[data-photo]').forEach(setupPhoto);
 }
 function bindChoice(box){
-  var p=box.dataset.choice,multi=box.hasAttribute('data-multi');
+  var p=box.dataset.choice;
   function paint(){var v=getP(p);box.querySelectorAll('button[data-val]').forEach(function(b){
-    var on=multi?(v||[]).indexOf(b.dataset.val)>=0:v===b.dataset.val;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on)})}
+    var on=v===b.dataset.val;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on)})}
   box.querySelectorAll('button[data-val]').forEach(function(b){b.addEventListener('click',function(){
-    var v=getP(p);
-    if(multi){v=(v||[]).slice();var i=v.indexOf(b.dataset.val);if(i<0)v.push(b.dataset.val);else v.splice(i,1)}
-    else v=(v===b.dataset.val&&box.hasAttribute('data-toggle'))?'':b.dataset.val;
-    setP(p,v);paint();
+    var v=getP(p);v=(v===b.dataset.val&&box.hasAttribute('data-toggle'))?'':b.dataset.val;setP(p,v);paint();
   })});
   paint();painters.push(paint);
 }
@@ -315,68 +300,19 @@ function setupPhoto(box){
 }
 function shrink(file){return new Promise(function(res,rej){
   var url=URL.createObjectURL(file),im=new Image();
-  im.onload=function(){var M=560,w=im.naturalWidth,h=im.naturalHeight,r=Math.min(1,M/Math.max(w,h));
+  im.onload=function(){var M=640,w=im.naturalWidth,h=im.naturalHeight,r=Math.min(1,M/Math.max(w,h));
     w=Math.round(w*r);h=Math.round(h*r);var c=document.createElement('canvas');c.width=w;c.height=h;
-    c.getContext('2d').drawImage(im,0,0,w,h);URL.revokeObjectURL(url);res(c.toDataURL('image/jpeg',0.6))};
+    c.getContext('2d').drawImage(im,0,0,w,h);URL.revokeObjectURL(url);res(c.toDataURL('image/jpeg',0.65))};
   im.onerror=function(){URL.revokeObjectURL(url);rej()};im.src=url;
 })}
 
 /* ---------- 상태 판단 ---------- */
-function plantName(pl){var n=pl.name.trim();return n?(pl.nick==='1'?'(별명) '+n:n):''}
-function plantDone(pl){return !!(pl.photo&&pl.place.trim()&&pl.name.trim()&&pl.note.trim())}
-function doneCount(){return S.plants.filter(plantDone).length}
-function realNameCount(){return S.plants.filter(function(p){return p.name.trim()&&p.nick!=='1'}).length}
 function screenDone(i){
-  if(i===0)return !!(S.group&&S.members[0].name.trim());
-  if(i===1)return S.screen>1;
-  if(i===2)return doneCount()===N;
-  if(i===3)return S.bonus.some(function(b){return b.photo||b.note.trim()});
-  if(i===4)return !!(S.groupPhoto&&S.best);
-}
-
-/* ---------- 화면 그리기 ---------- */
-function buildMembers(){
-  var h='';for(var i=0;i<5;i++)h+='<input type="text" inputmode="numeric" data-bind="members.'+i+'.id" placeholder="학번" aria-label="'+(i+1)+'번째 학번"><input type="text" data-bind="members.'+i+'.name" placeholder="'+(i===0?'이름 (모둠장)':'이름')+'" aria-label="'+(i+1)+'번째 이름">';
-  $('members').innerHTML=h;
-}
-function buildZones(){
-  $('zones').innerHTML='<div class="slots">'+
-      S.plants.map(function(_,i){var b='plants.'+i+'.';
-        return '<div class="slot" data-slot="'+i+'">'+
-          '<div class="slot-head">🌱 식물 '+(i+1)+' <span class="badge no"></span></div>'+
-          '<div class="photo" data-photo="'+b+'photo" data-label="식물 '+(i+1)+' 사진"></div>'+
-          '<div class="fields">'+
-            '<input type="text" data-bind="'+b+'place" placeholder="📍 찾은 장소 (예: 대숲 입구)" aria-label="식물 '+(i+1)+' 찾은 장소">'+
-            '<input type="text" data-bind="'+b+'name" placeholder="식물 이름" aria-label="식물 '+(i+1)+' 이름">'+
-            '<textarea data-bind="'+b+'note" placeholder="특징 (예: 잎이 길쭉하고 끝이 뾰족하다. 만지면 까끌까끌하다.)" aria-label="식물 '+(i+1)+' 특징"></textarea>'+
-            '<div class="choices" data-choice="'+b+'nick" data-toggle><button type="button" data-val="1" style="min-height:40px;font-size:.8rem">이름 대신 별명을 썼어요</button></div>'+
-          '</div></div>';
-      }).join('')+'</div>';
-  bind($('zones'));
-  paintSlots();
-}
-/* 입력 중인 칸은 다시 그리지 않고 완료 표시만 바꾼다 */
-var prevDone=null;
-function paintSlots(){
-  $('zones').querySelectorAll('[data-slot]').forEach(function(s){
-    var pl=S.plants[+s.dataset.slot],d=plantDone(pl),bd=s.querySelector('.badge');
-    s.classList.toggle('done',d);bd.classList.toggle('no',!d);
-    var miss=[];if(!pl.photo)miss.push('사진');if(!pl.place.trim())miss.push('장소');if(!pl.name.trim())miss.push('이름');if(!pl.note.trim())miss.push('특징');
-    bd.textContent=d?'✔ 완료':(miss.length===4?'＋ 시작 전':miss.join('·')+' 남음');
-  });
-  var c=doneCount();$('cnt').textContent=c+' / '+N+(c===N?'  🎉 미션 성공!':'');$('progBar').style.width=(c/N*100)+'%';
-  if(prevDone!==null&&c>prevDone)toast('식물 '+c+'개 완료!'+(c===N?' 🎉 미션 성공!':''));prevDone=c;
-}
-
-function buildBonus(){
-  $('bonus').innerHTML=BONUS.map(function(x,i){return '<div class="card"><b>'+x.ic+' '+esc(x.t)+'</b><div class="photo" data-photo="bonus.'+i+'.photo" data-label="사진" style="margin-top:8px"></div><input type="text" data-bind="bonus.'+i+'.note" placeholder="'+esc(x.ph)+'" style="margin-top:8px"></div>'}).join('');
-  bind($('bonus'));
-}
-function buildBest(){
-  var names=[];S.plants.forEach(function(p,i){var n=plantName(p);if(n)names.push(n)});
-  var box=$('bestPick'),clone=box.cloneNode(false);
-  clone.innerHTML=names.length?names.map(function(n){return '<button type="button" data-val="'+esc(n)+'">'+esc(n)+'</button>'}).join(''):'<span class="muted">식물을 찾으면 여기에 나타나요.</span>';
-  box.parentNode.replaceChild(clone,box);bindChoice(clone);
+  if(i===0)return !!(S.sname.trim()&&S.group);
+  if(i===1)return !!S.knownNow.trim();
+  if(i===2)return !!S.scene.photo;
+  if(i===3)return !!S.u1.trim();
+  if(i===4)return !!(S.r1.trim()&&S.camp.trim());
 }
 
 /* ---------- 이동 ---------- */
@@ -386,11 +322,9 @@ function buildNav(){
 }
 function go(i){
   if(i<0||i>=SCREENS.length)return;
-  if(i>0&&!S.group){toast('먼저 모둠 번호를 골라 주세요.');i=0}
+  if(i>0&&!S.sname.trim()){toast('먼저 이름을 적어 주세요.');i=0}
   S.screen=i;save();
   document.querySelectorAll('.screen').forEach(function(s,k){s.classList.toggle('show',k===i)});
-  if(i===2)paintSlots();
-  if(i===4)buildBest();
   $('prevBtn').disabled=i===0;$('nextBtn').textContent=i===SCREENS.length-1?'끝 ✔':'다음 ▶';$('nextBtn').disabled=i===SCREENS.length-1;
   refresh();window.scrollTo(0,0);
 }
@@ -398,7 +332,6 @@ $('prevBtn').addEventListener('click',function(){go(S.screen-1)});
 $('nextBtn').addEventListener('click',function(){go(S.screen+1)});
 function refresh(){
   $('nav').querySelectorAll('[data-go]').forEach(function(b,i){b.classList.toggle('cur',i===S.screen);b.querySelector('.ok').textContent=screenDone(i)?' ✔':''});
-  if(S.screen===2)paintSlots();
   tick();
 }
 
@@ -422,7 +355,7 @@ $('resetBtn').addEventListener('click',function(){
   askConfirm('모든 입력과 사진을 지우고 처음부터 할까요?\n(결과 카드를 저장하지 않았다면 먼저 저장하세요.)','처음부터 하기',function(){
     try{localStorage.removeItem(KEY)}catch(e){}
     // 새로고침 없이 그 자리에서 비운다 (새로고침이 막힌 환경에서도 작동)
-    S=blank();prevDone=null;
+    S=blank();
     painters.forEach(function(f){f()});
     lastCanvas=null;$('cardImg').hidden=true;$('saveNote').hidden=true;$('saveImg').disabled=true;$('makeCard').textContent='🪪 결과 카드 만들기';
     go(0);toast('처음부터 다시 시작해요.');
@@ -430,110 +363,79 @@ $('resetBtn').addEventListener('click',function(){
 });
 
 /* ---------- 결과 카드 ---------- */
-function teamLine(){return S.members.filter(function(m){return m.id.trim()||m.name.trim()}).map(function(m){return (m.id.trim()+' '+m.name.trim()).trim()}).join(', ')}
+function who(){return ((S.sid.trim()+' '+S.sname.trim()).trim()||'이름 미입력')+(S.group?' · '+S.group+'모둠':'')+(S.role?' · '+S.role:'')}
 function cardText(){
   var L=[];
-  L.push('🌿 태화강 국가정원 모둠 미션 결과 (2026. 11. 7.)');
-  L.push((S.group?S.group+'모둠':'모둠 미정')+' | '+(teamLine()||'모둠원 미입력'));
-  L.push('찾은 식물 '+doneCount()+'/'+N+', 진짜 이름 찾음 '+realNameCount()+'개');
+  L.push('🙋 UNIST · 태화강 국가정원 개인 미션 결과 (2026. 11. 7.)');
+  L.push(who());
   L.push('');
-  S.plants.forEach(function(p,i){
-    L.push((i+1)+'. '+(plantName(p)||'(미완성)')+(p.place.trim()?' (장소: '+p.place.trim()+')':''));
-    if(p.note.trim())L.push('   특징: '+p.note.trim().replace(/\n/g,' '));
-  });
-  var bs=[];S.bonus.forEach(function(b,i){if(b.photo||b.note.trim())bs.push('- '+BONUS[i].t+(b.note.trim()?': '+b.note.trim():' (사진)'))});
-  if(bs.length){L.push('');L.push('⭐ 보너스 미션');L=L.concat(bs)}
+  L.push('📸 나만의 한 장면: '+(S.scene.title.trim()||'-')+(S.scene.why.trim()?' — '+S.scene.why.trim():''));
   L.push('');
-  L.push('🏆 최고의 식물: '+(S.best||'-')+(S.bestWhy.trim()?' — '+S.bestWhy.trim():''));
+  L.push('[🧪 UNIST 돌아보기]');
+  L.push('🧪 가장 기억에 남는 실험·특강: '+(S.u1.trim()||'-'));
+  L.push('🏫 캠퍼스를 둘러보며 든 생각: '+(S.u3.trim()||'-'));
+  L.push('');
+  L.push('[🌿 태화강 돌아보기]');
+  L.push('처음에 알던 식물: '+(S.knownNow.trim()||'-'));
+  L.push('새로 알게 된 식물: '+(S.newNames.trim()||'-'));
+  L.push('💡 새로 알게 된 사실: '+(S.r1.trim()||'-'));
+  L.push('🏫 우리 동네에서도 본 식물: '+(S.r2.trim()||'-'));
+  L.push('🤝 모둠 활동 돌아보기: '+(S.r3.trim()||'-'));
+  L.push('');
+  L.push('✨ 오늘 과학-생태 캠프 소감: '+(S.camp.trim()||'-'));
   return L.join('\n');
 }
 function loadImg(src){return new Promise(function(r){if(!src)return r(null);var im=new Image();im.onload=function(){r(im)};im.onerror=function(){r(null)};im.src=src})}
-function wrap(ctx,text,x,y,maxW,lh,draw){
-  var lines=[],paras=String(text).split('\n');
-  paras.forEach(function(pa){var cur='';for(var i=0;i<pa.length;i++){var t=cur+pa[i];if(ctx.measureText(t).width>maxW&&cur){lines.push(cur);cur=pa[i]}else cur=t}lines.push(cur)});
-  if(draw!==false)lines.forEach(function(l,i){ctx.fillText(l,x,y+i*lh)});
+function wrap(ctx,text,x,y,maxW,lh){
+  var lines=[];String(text).split('\n').forEach(function(pa){var cur='';for(var i=0;i<pa.length;i++){var t=cur+pa[i];if(ctx.measureText(t).width>maxW&&cur){lines.push(cur);cur=pa[i]}else cur=t}lines.push(cur)});
+  lines.forEach(function(l,i){ctx.fillText(l,x,y+i*lh)});
   return y+lines.length*lh;
 }
-function cover(ctx,im,x,y,w,h){
-  var r=Math.max(w/im.width,h/im.height),sw=w/r,sh=h/r;
-  ctx.drawImage(im,(im.width-sw)/2,(im.height-sh)/2,sw,sh,x,y,w,h);
-}
+function cover(ctx,im,x,y,w,h){var r=Math.max(w/im.width,h/im.height),sw=w/r,sh=h/r;ctx.drawImage(im,(im.width-sw)/2,(im.height-sh)/2,sw,sh,x,y,w,h)}
 function rr(ctx,x,y,w,h,r,fill,stroke){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();
   if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=2;ctx.stroke()}}
 var FONT='"Malgun Gothic","Apple SD Gothic Neo","Noto Sans KR",sans-serif';
 var lastCanvas=null;
+function photoBox(ctx,im,x,y,w,h){
+  if(im){ctx.save();rr(ctx,x,y,w,h,12);ctx.clip();cover(ctx,im,x,y,w,h);ctx.restore()}
+  else{rr(ctx,x,y,w,h,12,'#f1ede4');ctx.fillStyle='#8a8478';ctx.font='20px '+FONT;ctx.fillText('사진 없음',x+w/2-42,y+h/2-12)}
+}
 $('makeCard').addEventListener('click',function(){
   var btn=this;btn.disabled=true;btn.textContent='만드는 중...';
-  Promise.all(S.plants.map(function(p){return loadImg(p.photo)}).concat(S.bonus.map(function(b){return loadImg(b.photo)}),[loadImg(S.groupPhoto)])).then(function(imgs){
-    var pImgs=imgs.slice(0,N),bImgs=imgs.slice(N,N+BONUS.length),gImg=imgs[N+BONUS.length];
-    var W=1000,P=36,c=document.createElement('canvas');c.width=W;c.height=7000;var ctx=c.getContext('2d');
-    ctx.fillStyle='#ffffff';ctx.fillRect(0,0,W,c.height);ctx.textBaseline='top';
-    // 머리
-    rr(ctx,0,0,W,150,0,'#e4f3e8');
-    ctx.fillStyle='#1c2a21';ctx.font='bold 34px '+FONT;ctx.fillText('🌿 태화강 국가정원 모둠 미션',P,26);
-    ctx.font='bold 24px '+FONT;ctx.fillStyle='#2b7a4b';ctx.fillText((S.group?S.group+'모둠':'모둠 미정')+'  ·  2026. 11. 7. (토)',P,76);
-    ctx.font='20px '+FONT;ctx.fillStyle='#1c2a21';var y=wrap(ctx,teamLine()||'모둠원 미입력',P,110,W-2*P,28);
-    y=Math.max(y,150)+20;
-    // 단체 사진: 원래 비율을 살려서 넣는다
-    if(gImg){
-      var gw=W-2*P,gh=Math.min(560,Math.round(gw*gImg.height/gImg.width));
-      ctx.save();rr(ctx,P,y,gw,gh,16);ctx.clip();cover(ctx,gImg,P,y,gw,gh);ctx.restore();
-      rr(ctx,P,y,gw,gh,16,null,'#2b7a4b');y+=gh+20;
-    }
-    ctx.font='bold 24px '+FONT;ctx.fillStyle='#1c2a21';
-    ctx.fillText('찾은 식물 '+doneCount()+' / '+N+'   ·   진짜 이름 찾음 '+realNameCount()+'개',P,y);y+=46;
-    // 식물 칸
-    var cw=(W-2*P-16)/2,ch=200;
-    S.plants.forEach(function(p,i){
-      var col=i%2,x=P+col*(cw+16);if(col===0&&i>0)y+=ch+14;
-      rr(ctx,x,y,cw,ch,16,plantDone(p)?'#f3faf5':'#fafafa',plantDone(p)?'#2b7a4b':'#c8d4cb');
-      var ph=170;
-      if(pImgs[i]){ctx.save();rr(ctx,x+14,y+15,ph,ph,12);ctx.clip();cover(ctx,pImgs[i],x+14,y+15,ph,ph);ctx.restore()}
-      else{rr(ctx,x+14,y+15,ph,ph,12,'#eef3ee');ctx.fillStyle='#8a998f';ctx.font='20px '+FONT;ctx.fillText('사진 없음',x+52,y+90)}
-      var tx=x+ph+28,tw=cw-ph-40;
-      ctx.fillStyle='#4b5b51';ctx.font='17px '+FONT;var pl=(i+1)+'. 📍 '+(p.place.trim()||'장소 미입력');while(pl.length>3&&ctx.measureText(pl).width>tw)pl=pl.slice(0,-2)+'…';ctx.fillText(pl,tx,y+16);
-      ctx.fillStyle='#1c2a21';ctx.font='bold 23px '+FONT;var yy=wrap(ctx,plantName(p)||'(미완성)',tx,y+42,tw,28);
-      ctx.fillStyle='#1c2a21';var ft=p.note.trim();
-      // 칸을 넘지 않도록 자르기
-      var maxY=y+ch-26,lines=[];ctx.font='16px '+FONT;
-      ft.split('\n').forEach(function(pa){var cur='';for(var k=0;k<pa.length;k++){var t=cur+pa[k];if(ctx.measureText(t).width>tw&&cur){lines.push(cur);cur=pa[k]}else cur=t}if(cur)lines.push(cur)});
-      lines.forEach(function(l){if(yy<=maxY){ctx.fillText(l,tx,yy+4);yy+=22}});
-    });
-    y+=ch+30;
-    // 보너스
-    var bIdx=[];S.bonus.forEach(function(b,i){if(b.photo||b.note.trim())bIdx.push(i)});
-    if(bIdx.length){
-      ctx.fillStyle='#1c2a21';ctx.font='bold 26px '+FONT;ctx.fillText('⭐ 보너스 미션 ('+bIdx.length+'개)',P,y);y+=42;
-      var bw=(W-2*P-32)/3,bh=250;
-      bIdx.forEach(function(bi,k){var col=k%3,x=P+col*(bw+16);if(col===0&&k>0)y+=bh+14;
-        rr(ctx,x,y,bw,bh,14,'#fffaf0','#e7c97a');
-        if(bImgs[bi]){ctx.save();rr(ctx,x+10,y+10,bw-20,140,10);ctx.clip();cover(ctx,bImgs[bi],x+10,y+10,bw-20,140);ctx.restore()}
-        else{rr(ctx,x+10,y+10,bw-20,140,10,'#f2ece0')}
-        ctx.fillStyle='#1c2a21';ctx.font='bold 16px '+FONT;var yy=wrap(ctx,BONUS[bi].t,x+12,y+158,bw-24,21);
-        ctx.font='15px '+FONT;ctx.fillStyle='#4b5b51';
-        var nt=S.bonus[bi].note.trim(),out='';for(var q=0;q<nt.length;q++){out+=nt[q]}
-        if(yy<y+bh-24)wrap(ctx,out.slice(0,60),x+12,yy+2,bw-24,20);
+  loadImg(S.scene.photo).then(function(sceneImg){
+    var W=1000,P=36,c=document.createElement('canvas');c.width=W;c.height=5000;var ctx=c.getContext('2d');
+    ctx.fillStyle='#fff';ctx.fillRect(0,0,W,c.height);ctx.textBaseline='top';
+    rr(ctx,0,0,W,140,0,'#efeafb');
+    ctx.fillStyle='#1c2a21';ctx.font='bold 34px '+FONT;ctx.fillText('🙋 UNIST · 태화강 국가정원 개인 미션',P,26);
+    ctx.font='bold 23px '+FONT;ctx.fillStyle='#5b3fa0';var y=wrap(ctx,who()+'  ·  2026. 11. 7. (토)',P,78,W-2*P,30);
+    y=Math.max(y,140)+24;
+    // 한 장면
+    ctx.fillStyle='#1c2a21';ctx.font='bold 26px '+FONT;ctx.fillText('📸 나만의 한 장면',P,y);y+=42;
+    photoBox(ctx,sceneImg,P,y,W-2*P,420);y+=436;
+    ctx.font='bold 22px '+FONT;y=wrap(ctx,S.scene.title.trim()||'-',P,y,W-2*P,30);
+    ctx.font='19px '+FONT;ctx.fillStyle='#4b5b51';y=wrap(ctx,S.scene.why.trim(),P,y+2,W-2*P,28)+24;
+    function section(title,rows){
+      ctx.fillStyle='#1c2a21';ctx.font='bold 26px '+FONT;ctx.fillText(title,P,y);y+=42;
+      rows.forEach(function(r){
+        ctx.font='bold 20px '+FONT;ctx.fillStyle='#5b3fa0';ctx.fillText(r[0],P,y);y+=30;
+        ctx.font='19px '+FONT;ctx.fillStyle='#1c2a21';y=wrap(ctx,(r[1]||'').trim()||'-',P+8,y,W-2*P-8,28)+14;
       });
-      y+=bh+30;
+      y+=12;
     }
-    // 돌아보기
-    ctx.fillStyle='#1c2a21';ctx.font='bold 26px '+FONT;ctx.fillText('💭 모둠 정리',P,y);y+=42;
-    [['🏆 최고의 식물',(S.best||'-')+(S.bestWhy.trim()?' — '+S.bestWhy.trim():'')]].forEach(function(r){
-      ctx.font='bold 20px '+FONT;ctx.fillStyle='#2b7a4b';ctx.fillText(r[0],P,y);y+=30;
-      ctx.font='19px '+FONT;ctx.fillStyle='#1c2a21';y=wrap(ctx,(r[1]||'').trim()||'-',P+8,y,W-2*P-8,28)+14;
-    });
-    y+=10;ctx.fillStyle='#4b5b51';ctx.font='15px '+FONT;ctx.fillText('중학교 과학 현장 체험 · 태화강 국가정원',P,y);y+=36;
+    section('🧪 오전: UNIST 돌아보기',[['🧪 가장 기억에 남는 실험·특강',S.u1],['🏫 캠퍼스를 둘러보며 든 생각',S.u3]]);
+    section('🌿 오후: 태화강 돌아보기',[['🌱 처음에 알던 식물',S.knownNow],['🌱 새로 알게 된 식물',S.newNames],['💡 새로 알게 된 사실',S.r1],['🏫 우리 동네에서도 본 식물',S.r2],['🤝 모둠 활동 돌아보기',S.r3]]);
+    section('✨ 오늘 과학-생태 캠프 소감',[['오늘 하루 캠프는 어땠나요?',S.camp]]);
+    ctx.fillStyle='#4b5b51';ctx.font='15px '+FONT;ctx.fillText('중학교 과학 현장 체험 · UNIST · 태화강 국가정원',P,y);y+=36;
     var out=document.createElement('canvas');out.width=W;out.height=y;
     var o=out.getContext('2d');o.fillStyle='#fff';o.fillRect(0,0,W,y);o.drawImage(c,0,0);
-    o.strokeStyle='#2b7a4b';o.lineWidth=6;o.strokeRect(3,3,W-6,y-6);
+    o.strokeStyle='#5b3fa0';o.lineWidth=6;o.strokeRect(3,3,W-6,y-6);
     lastCanvas=out;
     var img=$('cardImg');img.src=out.toDataURL('image/png');img.hidden=false;$('saveNote').hidden=false;$('saveImg').disabled=false;
-    btn.disabled=false;btn.textContent='🪪 결과 카드 다시 만들기';
-    toast(gImg?'결과 카드를 만들었어요! 이제 이미지 저장을 눌러요.':'결과 카드를 만들었어요. 단체 사진이 아직 없어요!');
+    btn.disabled=false;btn.textContent='🪪 결과 카드 다시 만들기';toast('결과 카드를 만들었어요!');
   }).catch(function(){btn.disabled=false;btn.textContent='🪪 결과 카드 만들기';toast('결과 카드를 만들지 못했어요. 다시 눌러 보세요.')});
 });
 $('saveImg').addEventListener('click',function(){
-  if(!lastCanvas)return;var name=(S.group||'0')+'모둠_태화강_식물찾기.png';
+  if(!lastCanvas)return;var name=(S.sid.trim()||'')+(S.sname.trim()||'개인')+'_태화강_개인미션.png';
   try{lastCanvas.toBlob(function(b){if(!b){toast('그림을 길게 눌러 저장하세요.');return}
     var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=name;document.body.appendChild(a);a.click();
     setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},1500);toast('이미지를 저장했어요.')},'image/png')}
@@ -547,8 +449,8 @@ $('copyTxt').addEventListener('click',function(){
 });
 
 /* ---------- 시작 ---------- */
-buildNav();buildMembers();buildZones();buildBonus();
-bind($('s0'));bind($('s1'));bind($('s4'));
+buildNav();
+bind($('s0'));bind($('s1'));bind($('s2'));bind($('s3'));bind($('s4'));
 paintDemo();go(S.screen||0);
 if(!canStore)toast('이 창에서는 입력 내용이 저장되지 않아요. 새로고침하지 말고 끝까지 해요.');
 })();
