@@ -47,7 +47,7 @@ textarea{min-height:80px;resize:vertical}
 .choices button{min-height:48px;padding:6px 14px;border-radius:12px;border:2px solid var(--line);background:#fff;cursor:pointer;font-weight:600}
 .choices button.on{background:var(--purple-l);border-color:var(--purple);color:#3b2775}
 .choices button.on::before{content:"✔ "}
-.groups{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.groups{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
 .groups button{min-height:56px}
 .two{display:grid;grid-template-columns:1fr 2fr;gap:8px}
 ul.rules{margin:.3em 0;padding-left:1.2em}
@@ -113,7 +113,9 @@ ul.rules{margin:.3em 0;padding-left:1.2em}
     <div class="choices groups" data-choice="group">
       <button type="button" data-val="1">1모둠</button><button type="button" data-val="2">2모둠</button>
       <button type="button" data-val="3">3모둠</button><button type="button" data-val="4">4모둠</button>
-      <button type="button" data-val="5">5모둠</button><button type="button" data-val="6">6모둠</button>    </div>
+      <button type="button" data-val="5">5모둠</button><button type="button" data-val="6">6모둠</button>
+      <button type="button" data-val="7">7모둠</button>
+    </div>
     <label class="f">모둠에서 내가 맡은 역할</label>
     <div class="choices" data-choice="role">
       <button type="button" data-val="📷 사진 담당">📷 사진 담당</button><button type="button" data-val="🔍 이름 탐정">🔍 이름 탐정</button>
